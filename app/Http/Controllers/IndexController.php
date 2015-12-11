@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Mail;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -20,15 +21,7 @@ class IndexController extends Controller
     {
         $program = Program::where('slug', '=', $id)->first();
 
-        switch (true) {
-            case $program === null:
-                abort(404);
-                break;
-
-            default:
-                $program = $program->toArray();
-                break;
-        }
+        $program = $this->programLinter($program);
 
         return view('index')->with([
             "titleStrong" => $program['titleStrong'],
@@ -43,8 +36,31 @@ class IndexController extends Controller
 
     public function inquire(Request $request, $id)
     {
-        dd($id);
-        dd($request);
+        $program = Program::where('slug', '=', $id)->first();
+
+        $program = $this->programLinter($program);
+
+        $request = $request->all();
+
+        $data = array_merge($request, $program);
+
+        $sendMail = Mail::send('email.inquire', ['data' => $data], function ($message) use ($data) {
+
+            $message->from('inquire@jacobsgroupvegas.com', '[INQUIRE] ' . $data['first_name']);
+            $message->to(env('INQUIRE_EMAIL', 'andreas@sapioweb.com'), 'Lead Gen')->subject('[INQUIRE] ' . $data['titleStrong'] . ' ' . $data['title']);
+
+        });
+
+        if ($sendMail !== 1) {
+            return redirect()->back()->with('error_message', 'Something went wrong, please try again later.');
+        }
+
+        return redirect()->route('sendSuccess');
+    }
+
+    public function inquireSuccess()
+    {
+        return view('sendSuccess');
     }
 
     /**
@@ -111,5 +127,20 @@ class IndexController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function programLinter($program)
+    {
+        switch (true) {
+            case $program === null:
+                abort(404);
+                break;
+
+            default:
+                $program = $program->toArray();
+                break;
+        }
+
+        return $program;
     }
 }

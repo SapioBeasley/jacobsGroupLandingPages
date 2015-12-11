@@ -52,3 +52,9 @@
 	<!--change here-->
 	<h4><i class="fa fa-check"></i> {{$bullet2}}</h4>
 </div>
+
+<!-- Description #10 -->
+<div class="intro_feature">
+	<!--change here-->
+	<h4><i class="fa fa-check"></i> No income limit</h4>
+</div>

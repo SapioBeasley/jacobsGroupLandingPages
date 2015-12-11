@@ -11,9 +11,19 @@
 |
 */
 
-// Route::get('/', 'IndexController', ['only' => ['show']]);
 Route::get('{id}', [
 	'uses' => 'IndexController@index',
 	'as' => 'program'
 ]);
+
+Route::post('{id}/inquire', [
+	'uses' => 'IndexController@inquire',
+	'as' => 'inquire'
+]);
+
+Route::get('inquire/success', [
+	'uses' => 'IndexController@inquireSuccess',
+	'as' => 'sendSuccess'
+]);
+
 Route::post('{id}', 'IndexController@store');
