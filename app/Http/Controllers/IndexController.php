@@ -17,20 +17,12 @@ class IndexController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($id)
+    public function index()
     {
-        $program = Program::where('slug', '=', $id)->first();
+        $programs = Program::all();
 
-        $program = $this->programLinter($program);
-
-        return view('index')->with([
-            "titleStrong" => $program['titleStrong'],
-            "title" => $program['title'],
-            "secondHead" => $program['secondHead'],
-            "bullet1" => $program['bullet1'],
-            "bullet2" => $program['bullet2'],
-            "disclaimerAdd" => $program['disclaimerAdd'],
-            "slug" => $program['slug'],
+        return view('program.index')->with([
+            'programs' => $programs
         ]);
     }
 
@@ -64,13 +56,60 @@ class IndexController extends Controller
     }
 
     /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        $program = Program::where('slug', '=', $id)->first();
+
+        $program = $this->programLinter($program);
+
+        return view('index')->with([
+            "titleStrong" => $program['titleStrong'],
+            "title" => $program['title'],
+            "secondHead" => $program['secondHead'],
+            "bullet1" => $program['bullet1'],
+            "bullet2" => $program['bullet2'],
+            "disclaimerAdd" => $program['disclaimerAdd'],
+            "slug" => $program['slug'],
+        ]);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function create()
     {
-        //
+        return view('program.create');
     }
 
     /**
@@ -85,17 +124,6 @@ class IndexController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        // dd($id);
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
@@ -103,7 +131,15 @@ class IndexController extends Controller
      */
     public function edit($id)
     {
-        //
+        $program = Program::find($id);
+
+        if ($program !== null) {
+            $program = $program->toArray();
+        }
+
+        return view('program.edit')->with([
+            'program' => $program
+        ]);
     }
 
     /**
@@ -115,7 +151,7 @@ class IndexController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        dd($id);
     }
 
     /**
@@ -126,7 +162,7 @@ class IndexController extends Controller
      */
     public function destroy($id)
     {
-        //
+        dd($id);
     }
 
     public function programLinter($program)
@@ -142,5 +178,24 @@ class IndexController extends Controller
         }
 
         return $program;
+    }
+
+    public function upload(Request $request, $id)
+    {
+        $program = Program::find($id);
+
+        $destinationPath = 'uploads'; // upload path
+        $extension = $request->file('file')->getClientOriginalExtension(); // getting file extension
+        $fileName = $program->slug . '.' . $extension; // renameing image
+        $upload_success = $request->file('file')->move($destinationPath, $fileName); // uploading file to given path
+
+        if ($upload_success) {
+            return response()->json([
+                'success' => 200,
+                'image' => $fileName
+            ])->withCookie(cookie('image', $fileName, 4500));
+        } else {
+            return response()->json('error', 400);
+        }
     }
 }

@@ -33,6 +33,6 @@
 
 <style type="text/css">
 	#intro {
-		background-image: url({{asset('img/parallax_bg/' . $slug . '.jpg')}});
+		background-image: url({{asset('uploads/' . $slug . '.jpg')}});
 	}
 </style>
