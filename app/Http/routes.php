@@ -50,7 +50,7 @@ Route::delete('{id}/destroy', [
 	'as' => 'program.destroy'
 ]);
 
-Route::post('{id}/store', [
+Route::post('/store', [
 	'middleware' => 'auth',
 	'uses' => 'IndexController@store',
 	'as' => 'program.store'
