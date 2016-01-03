@@ -7,6 +7,7 @@ use Mail;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Sapioweb\CrudHelper\CrudyController as CrudHelper;
 
 use App\Program;
 
@@ -19,16 +20,70 @@ class IndexController extends Controller
      */
     public function index()
     {
-        $programs = Program::all();
+        $programs = CrudHelper::index(new \App\Program);
 
         return view('program.index')->with([
             'programs' => $programs
         ]);
     }
 
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        $program = CrudHelper::show(new \App\Program, 'slug', $id);
+
+        $program = $this->programLinter($program);
+
+        return view('index')->with([
+            "titleStrong" => $program['titleStrong'],
+            "title" => $program['title'],
+            "secondHead" => $program['secondHead'],
+            "bullet1" => $program['bullet1'],
+            "bullet2" => $program['bullet2'],
+            "disclaimerAdd" => $program['disclaimerAdd'],
+            "slug" => $program['slug'],
+        ]);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        $program = CrudHelper::show(new \App\Program, 'id', $id);
+
+        $program = $this->programLinter($program);
+
+        return view('program.edit')->with([
+            'program' => $program
+        ]);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        $program = CrudHelper::destroy(new \App\Program, 'id', $id);
+
+        return redirect()->back()
+            ->with('success_message', 'Program Deleted');
+    }
+
     public function inquire(Request $request, $id)
     {
-        $program = Program::where('slug', '=', $id)->first();
+        $program = CrudHelper::show(new \App\Program, 'slug', $id);
 
         $program = $this->programLinter($program);
 
@@ -55,52 +110,39 @@ class IndexController extends Controller
         return view('sendSuccess');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function upload(Request $request, $id)
     {
-        $program = Program::where('slug', '=', $id)->first();
+        $program = CrudHelper::show(new \App\Program, 'id', $id);
 
-        $program = $this->programLinter($program);
+        $destinationPath = 'uploads'; // upload path
+        $extension = $request->file('file')->getClientOriginalExtension(); // getting file extension
+        $fileName = $program->slug . '.' . $extension; // renameing image
+        $upload_success = $request->file('file')->move($destinationPath, $fileName); // uploading file to given path
 
-        return view('index')->with([
-            "titleStrong" => $program['titleStrong'],
-            "title" => $program['title'],
-            "secondHead" => $program['secondHead'],
-            "bullet1" => $program['bullet1'],
-            "bullet2" => $program['bullet2'],
-            "disclaimerAdd" => $program['disclaimerAdd'],
-            "slug" => $program['slug'],
-        ]);
+        if ($upload_success) {
+            return response()->json([
+                'success' => 200,
+                'image' => $fileName
+            ])->withCookie(cookie('image', $fileName, 4500));
+        } else {
+            return response()->json('error', 400);
+        }
     }
 
+    public function programLinter($program)
+    {
+        switch (true) {
+            case $program === null:
+                abort(404);
+                break;
 
+            default:
+                $program = $program->toArray();
+                break;
+        }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        return $program;
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -120,26 +162,14 @@ class IndexController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        $createData = $request->all();
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        $program = Program::find($id);
+        $createData['slug'] = CrudHelper::slugify($createData['titleStrong'] . ' ' . $createData['title']);
 
-        if ($program !== null) {
-            $program = $program->toArray();
-        }
+        $program = Program::create($createData);
 
-        return view('program.edit')->with([
-            'program' => $program
-        ]);
+        return redirect()->route('index')
+            ->with('success_message', 'New Property Added');
     }
 
     /**
@@ -151,51 +181,22 @@ class IndexController extends Controller
      */
     public function update(Request $request, $id)
     {
-        dd($id);
-    }
+        $program = CrudHelper::show(new \App\Program, 'id', $id);
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        dd($id);
-    }
-
-    public function programLinter($program)
-    {
-        switch (true) {
-            case $program === null:
-                abort(404);
-                break;
-
-            default:
-                $program = $program->toArray();
-                break;
+        foreach ($request->all() as $key => $value) {
+            $updateData[$key] = $value;
         }
 
-        return $program;
-    }
+        unset($updateData['_method']);
+        unset($updateData['_token']);
 
-    public function upload(Request $request, $id)
-    {
-        $program = Program::find($id);
+        $updateData['slug'] =  CrudHelper::slugify($updateData['titleStrong'] . ' ' . $updateData['title']);
 
-        $destinationPath = 'uploads'; // upload path
-        $extension = $request->file('file')->getClientOriginalExtension(); // getting file extension
-        $fileName = $program->slug . '.' . $extension; // renameing image
-        $upload_success = $request->file('file')->move($destinationPath, $fileName); // uploading file to given path
+        $program->update($updateData);
 
-        if ($upload_success) {
-            return response()->json([
-                'success' => 200,
-                'image' => $fileName
-            ])->withCookie(cookie('image', $fileName, 4500));
-        } else {
-            return response()->json('error', 400);
-        }
+        $program = $this->programLinter($program);
+
+        return redirect()->route('program.edit', $program['id'])
+            ->with('success_message', 'Property Updated');
     }
 }
