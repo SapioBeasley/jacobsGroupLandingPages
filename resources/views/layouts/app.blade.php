@@ -85,6 +85,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script src="{{asset('js/dropzone.js')}}"></script>
 
+    @if (isset($program))
     <script type="text/javascript">
         var baseUrl = "{{ route('program', $program['id']) }}";
         var token = "{{ Session::getToken() }}";
@@ -104,6 +105,6 @@
             },
         };
     </script>
-
+    @endif
 </body>
 </html>

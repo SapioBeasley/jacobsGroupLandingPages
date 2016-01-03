@@ -14,15 +14,21 @@
 
 					<div class="panel-body">
 						{!! Form::open(['route' => ['program.store']]) !!}
-							{!! Form::label('streetAddress', 'Address') !!}
-							{!! Form::text('streetAddress', null, ['class' => 'form-control']) !!}
-							{!! Form::label('city', 'City') !!}
-							{!! Form::text('city', null, ['class' => 'form-control']) !!}
-							{!! Form::label('state', 'State') !!}
-							{!! Form::text('state', null, ['class' => 'form-control']) !!}
-							{!! Form::label('zipcode', 'Zipcode') !!}
-							{!! Form::text('zipcode', null, ['class' => 'form-control']) !!}
-							<div class="dropzone" id="dropzoneFileUpload"></div>
+							{!! Form::label('titleStrong', 'Main Title') !!}
+							{!! Form::text('titleStrong', null, ['class' => 'form-control']) !!}
+							{!! Form::label('title', 'Title') !!}
+							{!! Form::text('title', null, ['class' => 'form-control']) !!}
+							{!! Form::label('secondHead', 'Second Header') !!}
+							{!! Form::text('secondHead', null, ['class' => 'form-control']) !!}
+							{!! Form::label('bullet1', 'Bullet Point 1') !!}
+							{!! Form::text('bullet1', null, ['class' => 'form-control']) !!}
+							{!! Form::label('bullet2', 'Bullet Point 2') !!}
+							{!! Form::text('bullet2', null, ['class' => 'form-control']) !!}
+							{!! Form::label('disclaimerAdd', 'Disclaimer Addition') !!}
+							{!! Form::text('disclaimerAdd', null, ['class' => 'form-control']) !!}
+							@if (isset($program))
+								<div class="dropzone" id="dropzoneFileUpload"></div>
+							@endif
 							{!! Form::submit('Create') !!}
 						{!! Form::close() !!}
 					</div>
