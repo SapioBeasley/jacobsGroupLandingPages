@@ -39,7 +39,7 @@ class ProgramsTableSeeder extends Seeder
                 'bullet1' => 'For Hotel & Casino Employees and their families',
                 'bullet2' => 'Discounts offered for Hotel & Casino Employee selling their homes too!',
                 'disclaimerAdd' => NULL,
-                'slug' => 'hotel-casino-employee-program'
+                'slug' => 'hotel-casino-employee-home-assistance-program'
             ],
             [
                 'titleStrong' => 'Home Assistance Program',
@@ -48,7 +48,7 @@ class ProgramsTableSeeder extends Seeder
                 'bullet1' => 'For Team Members And Their Families',
                 'bullet2' => 'Discounts offered for Hotel & Casino Employee selling their homes too!',
                 'disclaimerAdd' => 'The program is for team members, but is not in any way represented by, associated with, or sponsored by the Cosmopolitan.',
-                'slug' => 'cosmopolitan-program'
+                'slug' => 'home-assistance-program-offered-to-cosmopolitan-employees'
             ],
             [
                 'titleStrong' => 'Las Vegas Incentive',
@@ -57,7 +57,7 @@ class ProgramsTableSeeder extends Seeder
                 'bullet1' => ' For Las Vegas Hotel/Resort and Casino Professionals and their families',
                 'bullet2' => 'Discounts offered for Las Vegas employees selling their homes too!',
                 'disclaimerAdd' => NULL,
-                'slug' => 'las-vegas-incentive-program'
+                'slug' => 'las-vegas-incentive-home-assistance-program'
             ],
             [
                 'titleStrong' => 'Teachers',
@@ -66,7 +66,7 @@ class ProgramsTableSeeder extends Seeder
                 'bullet1' => 'For Teachers and their families',
                 'bullet2' => 'Discounts offered for Teachers selling their homes too!',
                 'disclaimerAdd' => NULL,
-                'slug' => 'teachers-program'
+                'slug' => 'teachers-home-assistance-program'
             ],
             [
                 'titleStrong' => 'Clear Skies',
@@ -75,7 +75,7 @@ class ProgramsTableSeeder extends Seeder
                 'bullet1' => 'For Airline team members and their families',
                 'bullet2' => 'Discounts offered for Airline employees selling their homes too!',
                 'disclaimerAdd' => 'The program is for team members, but is not in any way represented by, associated with, or sponsored by the Airlines.',
-                'slug' => 'southwest-program'
+                'slug' => 'clear-skies-housing-assistance-program'
             ],
             [
                 'titleStrong' => 'Doctor&#39;s Reward',
@@ -84,7 +84,7 @@ class ProgramsTableSeeder extends Seeder
                 'bullet1' => 'For Doctor&#39;s and their families',
                 'bullet2' => 'Discounts offered for Doctor&#39;s selling their homes too!',
                 'disclaimerAdd' => NULL,
-                'slug' => 'doctors-program'
+                'slug' => 'doctor-s-reward-home-assistance-program'
             ],
             [
                 'titleStrong' => 'Nurses',
@@ -93,7 +93,7 @@ class ProgramsTableSeeder extends Seeder
                 'bullet1' => 'For Nurses and their families',
                 'bullet2' => 'Discounts offered for Nurses selling their homes too!',
                 'disclaimerAdd' => NULL,
-                'slug' => 'nurses-program'
+                'slug' => 'nurses-home-assistance-program'
             ],
             [
                 'titleStrong' => 'Newlywed',
@@ -102,7 +102,7 @@ class ProgramsTableSeeder extends Seeder
                 'bullet1' => 'For Newlyweds and their families',
                 'bullet2' => 'Discounts offered for Newlyweds selling their homes too!',
                 'disclaimerAdd' => NULL,
-                'slug' => 'newlywed-program'
+                'slug' => 'newlywed-home-assistance-program'
             ],
         ];
 
