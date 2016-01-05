@@ -35,6 +35,60 @@
                         </table>
                     </div>
                 </div>
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">Alt Layout (Not editable yet)</div>
+
+                    <div class="panel-body">
+                        <table class="table table-striped custab">
+                            <thead>
+                                <tr>
+                                    <th>Address</th>
+                                </tr>
+                            </thead>
+                                <tr>
+                                    <td>
+                                        <a href="http://jacobsgroupvegas.com/programs/hotel-casino-employee-program">Hotel &amp; Casino Employee Home Assistance Program</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <a href="http://jacobsgroupvegas.com/programs/cosmopolitan-program">Home Assistance Program offered to Cosmopolitan Employees</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <a href="http://jacobsgroupvegas.com/programs/las-vegas-incentive-program">Las Vegas Incentive Home Assistance Program</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <a href="http://jacobsgroupvegas.com/programs/teachers-program">Teachers Home Assistance Program</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <a href="http://jacobsgroupvegas.com/programs/southwest-airlines-program">Clear Skies Housing Assistance Program</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <a href="http://jacobsgroupvegas.com/programs/doctors-reward-home-program">Doctor&#039;s Reward Home Assistance Program</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <a href="http://jacobsgroupvegas.com/programs/nurses-program">Nurses Home Assistance Program</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <a href="http://jacobsgroupvegas.com/programs/newlywed-program">Newlywed Home Assistance Program</a>
+                                    </td>
+                                </tr>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
