@@ -9,7 +9,7 @@
                     {{Session::get('success_message')}}
                 @endif
 
-                <a class="btn" href="{{route('program.create')}}">Add New Property</a>
+                <a class="btn btn-primary" style="margin-bottom: 25px" href="{{route('program.create')}}">Add New Program</a>
 
                 <div class="panel panel-default">
                     <div class="panel-heading">Dashboard</div>
@@ -25,10 +25,15 @@
                                 <tr>
                                     <td><a href="{{route('program', $program['slug'])}}">{{$program['titleStrong']}} {{$program['title']}}</td>
                                     <td class="text-center">
-                                        <a class='btn btn-info btn-xs' href="{{route('program.edit', $program['id'])}}" style="    float: right;margin-left: 10px;"><span class="glyphicon glyphicon-edit"></span> Edit</a>
-                                        {!! Form::open(['route' => ['program.destroy', $program['id']], 'style' => 'float: right;width: 50px', 'method' => 'DELETE']) !!}
-                                            {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-xs']) !!}
-                                        {!! Form::close() !!}
+                                        <div class="col-md-6">
+                                            <a class='btn btn-primary btn-xs' href="{{route('program.edit', $program['id'])}}" style="width:100%"><span class="glyphicon glyphicon-edit"></span> Edit</a>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            {!! Form::open(['route' => ['program.destroy', $program['id']], 'style' => 'float: right;width: 100%', 'method' => 'DELETE']) !!}
+                                                {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-xs', 'style' => 'width:100%']) !!}
+                                            {!! Form::close() !!}
+                                        </div>
                                     </td>
                                 </tr>
                             @endforeach
