@@ -18,7 +18,7 @@
                         <table class="table table-striped custab">
                             <thead>
                                 <tr>
-                                    <th>Address</th>
+                                    <th>Program Name</th>
                                 </tr>
                             </thead>
                             @foreach ($programs as $program)
