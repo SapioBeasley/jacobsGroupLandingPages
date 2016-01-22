@@ -25,5 +25,6 @@ class Program extends Model
 	'bullet11',
       'disclaimerAdd',
       'slug',
+      'is_spanish',
     ];
 }

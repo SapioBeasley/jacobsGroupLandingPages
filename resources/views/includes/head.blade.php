@@ -1,7 +1,7 @@
 <!-- Basic -->
 <meta charset="utf-8">
 <!--Change here-->
-<title>{{$titleStrong}} {{$title}} | Jacobs Group Vegas</title>
+<title>{{$program['titleStrong']}} {{$program['title']}} | Jacobs Group Vegas</title>
 <meta name="author" content="Andreas Beasley">
 
 <!-- Mobile Specific Metas -->
@@ -33,6 +33,6 @@
 
 <style type="text/css">
 	#intro {
-		background-image: url({{asset('uploads/' . $slug . '.jpg')}});
+		background-image: url({{asset('uploads/' . $program['slug'] . '.jpg')}});
 	}
 </style>

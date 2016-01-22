@@ -40,22 +40,7 @@ class IndexController extends Controller
         $program = $this->programLinter($program);
 
         return view('index')->with([
-            "titleStrong" => $program['titleStrong'],
-            "title" => $program['title'],
-            "secondHead" => $program['secondHead'],
-            "bullet1" => $program['bullet1'],
-            "bullet2" => $program['bullet2'],
-            "bullet3" => $program['bullet3'],
-            "bullet4" => $program['bullet4'],
-            "bullet5" => $program['bullet5'],
-            "bullet6" => $program['bullet6'],
-            "bullet7" => $program['bullet7'],
-            "bullet8" => $program['bullet8'],
-            "bullet9" => $program['bullet9'],
-            "bullet10" => $program['bullet10'],
-            "bullet11" => $program['bullet11'],
-            "disclaimerAdd" => $program['disclaimerAdd'],
-            "slug" => $program['slug'],
+            'program' => $program
         ]);
     }
 

@@ -1,6 +1,6 @@
 <h2> Start Today! </h2>
 
-{!! Form::open(['route' => ['inquire', $slug]], ['class' => 'row', 'method' => 'post']) !!}
+{!! Form::open(['route' => ['inquire', $program['slug']]], ['class' => 'row', 'method' => 'post']) !!}
 
 	<div id="input_name" class="col-md-12">
 		{!! Form::text('first_name', null, ['class' => 'form-control', 'id' => 'name', 'placeholder' => 'Full Name']) !!}

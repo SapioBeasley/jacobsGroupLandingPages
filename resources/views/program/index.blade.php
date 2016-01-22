@@ -5,9 +5,7 @@
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
 
-                @if (Session::has('success_message'))
-                    {{Session::get('success_message')}}
-                @endif
+                @include('includes.status')
 
                 <a class="btn btn-primary" style="margin-bottom: 25px" href="{{route('program.create')}}">Add New Program</a>
 
