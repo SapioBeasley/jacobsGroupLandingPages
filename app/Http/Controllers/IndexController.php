@@ -111,12 +111,24 @@ class IndexController extends Controller
             return redirect()->back()->with('error_message', 'Something went wrong, please try again later.');
         }
 
-        return redirect()->route('sendSuccess');
+        return redirect()->route('sendSuccess', $program['id']);
     }
 
-    public function inquireSuccess()
+    public function inquireSuccess($id)
     {
-        return view('sendSuccess');
+        $program = CrudHelper::show(new \App\Program, 'id', $id);
+
+        $titleStrong = $program->titleStrong;
+        $title = $program->title;
+        $slug = $program->slug;
+
+        return view('sendSuccess')->with([
+            'program' => $program,
+            'titleStrong' => $program->titleStrong,
+            'title' => $program->title,
+            'slug' => $program->slug,
+            'disclaimerAdd' => $program->disclaimerAdd,
+        ]);
     }
 
     public function upload(Request $request, $id)

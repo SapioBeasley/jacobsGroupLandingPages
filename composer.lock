@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "ae2ac4148a9a722e7dc427f1556bdb32",
-    "content-hash": "70d05ae4c2fd49e50654cef49881df42",
+    "hash": "fdca13bdcd8cf017e45c48253d7f40af",
+    "content-hash": "f43a9f3f011d8f3fe9c84a6def0fb860",
     "packages": [
         {
             "name": "classpreloader/classpreloader",
@@ -1219,16 +1219,16 @@
         },
         {
             "name": "sapioweb/crudhelper",
-            "version": "1.0.3",
+            "version": "1.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/SapioBeasley/crudHelper.git",
-                "reference": "4a01de3f4f62b72f3c93507beda2303415289ed4"
+                "reference": "3bf810effdcb37e33ee2602b1cb7187211483672"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/SapioBeasley/crudHelper/zipball/4a01de3f4f62b72f3c93507beda2303415289ed4",
-                "reference": "4a01de3f4f62b72f3c93507beda2303415289ed4",
+                "url": "https://api.github.com/repos/SapioBeasley/crudHelper/zipball/3bf810effdcb37e33ee2602b1cb7187211483672",
+                "reference": "3bf810effdcb37e33ee2602b1cb7187211483672",
                 "shasum": ""
             },
             "type": "library",
@@ -1265,7 +1265,7 @@
                 "show",
                 "update"
             ],
-            "time": "2016-01-02 22:06:53"
+            "time": "2016-01-19 21:28:38"
         },
         {
             "name": "swiftmailer/swiftmailer",

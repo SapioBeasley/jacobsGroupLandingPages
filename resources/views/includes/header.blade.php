@@ -9,14 +9,14 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="index.html#top-page-banner"><img src="img/logo.png" alt="logo" role="banner"></a>
+			<a class="navbar-brand" href="#top-page-banner"><img src="{{url('img/logo.png')}}" alt="logo" role="banner"></a>
 		</div>  <!-- /.navbar-header -->
 
 		<!-- Navigation -->
 		<nav id="navigation-menu" class="collapse navbar-collapse"  role="navigation">
 			<ul class="nav navbar-nav navbar-right">
-				<li><a id="GoToHome" class="selected-nav" href="index.html#intro">Home</a></li>
-				<li><a id="GoToFaq" href="index.html#about-2">About</a></li>
+				<li><a id="GoToHome" class="selected-nav" href="#intro">Home</a></li>
+				<li><a id="GoToFaq" href="#about-2">About</a></li>
 			</ul>
 		</nav>  <!-- /.navbar-collapse -->
 

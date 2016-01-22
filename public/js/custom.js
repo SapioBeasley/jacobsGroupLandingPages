@@ -5,16 +5,32 @@
 	/*	Mobile Menu Toggle
 	/*----------------------------------------------------*/
 	$(document).ready(function() {
-		
-		"use strict";	
 
-		$('.navbar-nav li a').click(function() {				
+		"use strict";
+
+		$('.navbar-nav li a').click(function() {
 			$('#navigation-menu').css("height", "1px").removeClass("in").addClass("collapse");
-			$('#navigation-menu').removeClass("open");				
-		});			
+			$('#navigation-menu').removeClass("open");
+		});
 	});
-	
-	
+
+	/*----------------------------------------------------*/
+	/*	Statistic Counter
+	/*----------------------------------------------------*/
+
+	// $('.statistic-block').each(function() {
+	// 	$(this).appear(function() {
+	// 		var $endNum = parseInt($(this).find('.statistic-number').text());
+	// 		$(this).find('.statistic-number').countTo({
+	// 			from: 0,
+	// 			to: $endNum,
+	// 			speed: 3000,
+	// 			refreshInterval: 30,
+	// 		});
+	// 	},{accX: 0, accY: 0});
+	// });
+
+
 	/*----------------------------------------------------*/
 	/*	Animated Scroll To Anchor
 	/*----------------------------------------------------*/
@@ -35,9 +51,9 @@
 	 *
 	 * Licensed under the MIT license.
 	 * http://www.opensource.org/licenses/mit-license.php
-	 * 
+	 *
 	 */
-	 
+
 	$(document).ready(function(){
 
 
@@ -80,97 +96,97 @@
 				});
 			});
 		};
-		  
+
 		$('#GoToHome, #GoToAbout, #GoToFeatures, #GoToFaq, #GoToClients' ).scrollTo({ speed: 1400 });
 
 	});
-	
-	
+
+
 	/*----------------------------------------------------*/
 	/*	Current Menu Item
 	/*----------------------------------------------------*/
-	
+
 	$(document).ready(function() {
-		
+
 		//Bootstraping variable
 		headerWrapper		= parseInt($('#navigation-menu').height());
 		offsetTolerance	= 300;
-		
+
 		//Detecting user's scroll
 		$(window).scroll(function() {
-		
+
 			//Check scroll position
 			scrollPosition	= parseInt($(this).scrollTop());
-			
+
 			//Move trough each menu and check its position with scroll position then add selected-nav class
 			$('.navbar-nav > li > a').each(function() {
 
 				thisHref				= $(this).attr('href');
 				thisTruePosition	= parseInt($(thisHref).offset().top);
 				thisPosition 		= thisTruePosition - headerWrapper - offsetTolerance;
-				
+
 				if(scrollPosition >= thisPosition) {
-					
+
 					$('.selected-nav').removeClass('selected-nav');
 					$('.navbar-nav > li > a[href='+ thisHref +']').addClass('selected-nav');
-					
+
 				}
 			});
-			
-			
+
+
 			//If we're at the bottom of the page, move pointer to the last section
 			bottomPage	= parseInt($(document).height()) - parseInt($(window).height());
-			
+
 			if(scrollPosition == bottomPage || scrollPosition >= bottomPage) {
-			
+
 				$('.selected-nav').removeClass('selected-nav');
 				$('navbar-nav > li > a:last').addClass('selected-nav');
 			}
 		});
-		
+
 	});
-	
+
 
 	/*----------------------------------------------------*/
 	/*	Parallax
 	/*----------------------------------------------------*/
 	$(window).bind('load', function() {
-	
-		"use strict";	
+
+		"use strict";
 		parallaxInit();
-		
+
 	});
 
 	function parallaxInit() {
 		$('#intro').parallax("10%", 0.3);
 		$('#features').parallax("10%", 0.3);
-		$('#call-to-action').parallax("30%", 0.3);	
+		$('#call-to-action').parallax("30%", 0.3);
 	}
-	
-	
+
+
 	/*----------------------------------------------------*/
 	/*	Accordion
 	/*----------------------------------------------------*/
-	
+
 	$(document).ready(function(){
-	
+
 		"use strict";
 
 		$('ul.accordion').accordion();
-		
+
 	});
-	
-	
+
+
 	/*----------------------------------------------------*/
 	/*	Carousel
 	/*----------------------------------------------------*/
-	
+
 	$(document).ready(function(){
 
 		"use strict";
-				
+
 		$("#our-customers").owlCarousel({
-					  
+
 			slideSpeed : 600,
 			items : 6,
 			itemsDesktop : [1199,5],
@@ -180,44 +196,44 @@
 			navigation:true,
 			pagination:false,
 			navigationText : false
-					  
+
 		});
-				
+
 		// Carousel Navigation
 		$(".next").click(function(){
 			$("#our-customers").trigger('owl.next');
 		})
-		
+
 		$(".prev").click(function(){
 			$("#our-customers").trigger('owl.prev');
 		})
 
-		
-	});	
-	
-	
+
+	});
+
+
 	/*----------------------------------------------------*/
 	/*	Flexslider
 	/*----------------------------------------------------*/
-	
+
 	$(document).ready(function(){
-	
+
 		"use strict";
 
 		$('.flexslider').flexslider({
 			animation: "fade",
 			controlNav: false,
-			directionNav: false,  
-			slideshowSpeed: 4000,   
-			animationSpeed: 800,  
+			directionNav: false,
+			slideshowSpeed: 4000,
+			animationSpeed: 800,
 			start: function(slider){
 				$('body').removeClass('loading');
 			}
 		});
 
 	});
-	
-	
+
+
 	/*----------------------------------------------------*/
 	/*	ScrollUp
 	/*----------------------------------------------------*/
@@ -259,7 +275,7 @@
 				href: '#top',
 				title: o.scrollText
 			}).appendTo('body');
-			
+
 			// If not using an image display text
 			if (!o.scrollImg) {
 				$(scrollId).text(o.scrollText);
@@ -275,7 +291,7 @@
 			}
 
 			// Scroll function
-			$(window).scroll(function(){	
+			$(window).scroll(function(){
 				switch (o.animation) {
 					case "fade":
 						$( ($(window).scrollTop() > o.topDistance) ? $(scrollId).fadeIn(o.animationInSpeed) : $(scrollId).fadeOut(o.animationOutSpeed) );
@@ -295,22 +311,22 @@
 			});
 
 		};
-		
+
 		$.scrollUp();
 
 	});
-	
-	
+
+
 	/*----------------------------------------------------*/
 	/*	Register Form Validation
 	/*----------------------------------------------------*/
-	
+
 	$(document).ready(function(){
-	
+
 		"use strict";
 
 		$(".form_register form").validate({
-			rules:{ 
+			rules:{
 				first_name:{
 					required: true,
 					minlength: 4,
@@ -323,7 +339,7 @@
 					phone:{
 						required: true,
 						digits: true,
-					},	
+					},
 					message:{
 						required: true,
 						minlength: 2,
@@ -333,17 +349,17 @@
 							email:{
 								required: "We need your email address to contact you",
 								email: "Your email address must be in the format of name@domain.com"
-							}, 
+							},
 							phone:{
 								required: "Please enter only digits",
 								digits: "Please enter a valid number"
-							}, 
+							},
 							message:{
 								required: "Please enter no more than (2) characters"
-							}, 
+							},
 						}
-		});			
-		
+		});
+
 	});
 
-	
+

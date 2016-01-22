@@ -69,7 +69,7 @@ Route::post('{id}/inquire', [
 	'as' => 'inquire'
 ]);
 
-Route::get('inquire/success', [
+Route::get('inquire/{id}/success', [
 	'uses' => 'IndexController@inquireSuccess',
 	'as' => 'sendSuccess'
 ]);
