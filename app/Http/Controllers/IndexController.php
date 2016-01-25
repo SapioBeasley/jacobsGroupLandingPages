@@ -14,6 +14,17 @@ use App\Program;
 class IndexController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        // installs global error and exception handlers
+        \Rollbar::init(['access_token' => env('ROLLBAR_ACCESS_TOKEN')]);
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
