@@ -13,207 +13,217 @@ use App\Program;
 
 class IndexController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        // installs global error and exception handlers
-        \Rollbar::init(['access_token' => env('ROLLBAR_ACCESS_TOKEN')]);
-    }
+      /**
+      * Create a new controller instance.
+      *
+      * @return void
+      */
+      public function __construct()
+      {
+            // installs global error and exception handlers
+            \Rollbar::init(['access_token' => env('ROLLBAR_ACCESS_TOKEN')]);
+      }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        $programs = CrudHelper::index(new \App\Program);
+      /**
+      * Display a listing of the resource.
+      *
+      * @return \Illuminate\Http\Response
+      */
+      public function index()
+      {
+            $programs = CrudHelper::index(new \App\Program)->get();
 
-        return view('program.index')->with([
-            'programs' => $programs
-        ]);
-    }
+            return view('program.index')->with([
+                  'programs' => $programs
+            ]);
+      }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        $program = CrudHelper::show(new \App\Program, 'slug', $id);
+      /**
+      * Display the specified resource.
+      *
+      * @param  int  $id
+      * @return \Illuminate\Http\Response
+      */
+      public function show($id)
+      {
+            $program = $this->showProgram($id);
 
-        $program = $this->programLinter($program);
+            return view('index')->with([
+                  'program' => $program
+            ]);
+      }
 
-        return view('index')->with([
-            'program' => $program
-        ]);
-    }
+      /**
+      * Show the form for editing the specified resource.
+      *
+      * @param  int  $id
+      * @return \Illuminate\Http\Response
+      */
+      public function edit($id)
+      {
+            $program = $this->showProgram($id);
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        $program = CrudHelper::show(new \App\Program, 'id', $id);
+            return view('program.edit')->with([
+                  'program' => $program
+            ]);
+      }
 
-        $program = $this->programLinter($program);
+      public function showProgram($id)
+      {
+            $program = CrudHelper::show(new \App\Program, 'slug', $id);
 
-        return view('program.edit')->with([
-            'program' => $program
-        ]);
-    }
+            $program = $this->programLinter($program);
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        $program = CrudHelper::destroy(new \App\Program, 'id', $id);
+            return $program;
+      }
 
-        return redirect()->back()
-            ->with('success_message', 'Program Deleted');
-    }
+      /**
+      * Remove the specified resource from storage.
+      *
+      * @param  int  $id
+      * @return \Illuminate\Http\Response
+      */
+      public function destroy($id)
+      {
+            $program = CrudHelper::destroy(new \App\Program, $id);
 
-    public function inquire(Request $request, $id)
-    {
-        $program = CrudHelper::show(new \App\Program, 'slug', $id);
+            return redirect()->back()
+                  ->with('success_message', 'Program Deleted');
+      }
 
-        $program = $this->programLinter($program);
+      public function inquire(Request $request, $id)
+      {
+            $program = $this->showProgram($id);
 
-        $request = $request->all();
+            $request = $request->all();
 
-        $data = array_merge($request, $program);
+            $data = array_merge($request, $program);
 
-        $sendMail = Mail::send('email.inquire', ['data' => $data], function ($message) use ($data) {
+            $sendMail = $this->sendInquire($data);
 
-            $message->from('inquire@jacobsgroupvegas.com', '[INQUIRE] ' . $data['first_name']);
-            $message->to(env('INQUIRE_EMAIL', 'andreas@sapioweb.com'), 'Lead Gen')->subject('[INQUIRE] ' . $data['titleStrong'] . ' ' . $data['title']);
+            return redirect()->route('sendSuccess', $program['slug']);
+      }
 
-        });
+      public function sendInquire($data)
+      {
+            $sendInquire = Mail::send('email.inquire', ['data' => $data], function ($message) use ($data) {
 
-        if ($sendMail !== 1) {
-            return redirect()->back()->with('error_message', 'Something went wrong, please try again later.');
-        }
+                  $message->from('inquire@jacobsgroupvegas.com', '[INQUIRE] ' . $data['first_name']);
+                  $message->to(env('INQUIRE_EMAIL', 'andreas@sapioweb.com'), 'Lead Gen')->subject('[INQUIRE] ' . $data['titleStrong'] . ' ' . $data['title']);
 
-        return redirect()->route('sendSuccess', $program['id']);
-    }
+            });
 
-    public function inquireSuccess($id)
-    {
-        $program = CrudHelper::show(new \App\Program, 'id', $id);
+            if ($sendInquire !== 1) {
+                  return redirect()->back()->with('error_message', 'Something went wrong, please try again later.');
+            }
 
-        $titleStrong = $program->titleStrong;
-        $title = $program->title;
-        $slug = $program->slug;
+            return $sendInquire;
+      }
 
-        return view('sendSuccess')->with([
-            'program' => $program,
-            'titleStrong' => $program->titleStrong,
-            'title' => $program->title,
-            'slug' => $program->slug,
-            'disclaimerAdd' => $program->disclaimerAdd,
-        ]);
-    }
+      public function inquireSuccess($id)
+      {
+            $program = $this->showProgram($id);
 
-    public function upload(Request $request, $id)
-    {
-        $program = CrudHelper::show(new \App\Program, 'id', $id);
+            $titleStrong = $program->titleStrong;
+            $title = $program->title;
+            $slug = $program->slug;
 
-        $destinationPath = 'uploads'; // upload path
-        $extension = $request->file('file')->getClientOriginalExtension(); // getting file extension
-        $fileName = $program->slug . '.' . $extension; // renameing image
-        $upload_success = $request->file('file')->move($destinationPath, $fileName); // uploading file to given path
+            return view('sendSuccess')->with([
+                  'program' => $program,
+                  'titleStrong' => $program->titleStrong,
+                  'title' => $program->title,
+                  'slug' => $program->slug,
+                  'disclaimerAdd' => $program->disclaimerAdd,
+            ]);
+      }
 
-        if ($upload_success) {
-            return response()->json([
-                'success' => 200,
-                'image' => $fileName
-            ])->withCookie(cookie('image', $fileName, 4500));
-        } else {
-            return response()->json('error', 400);
-        }
-    }
+      public function upload(Request $request, $id)
+      {
+            $program = $this->showProgram($id);
 
-    public function programLinter($program)
-    {
-        switch (true) {
-            case $program === null:
-                abort(404);
-                break;
+            $destinationPath = 'uploads'; // upload path
+            $extension = $request->file('file')->getClientOriginalExtension(); // getting file extension
+            $fileName = $program->slug . '.' . $extension; // renameing image
+            $upload_success = $request->file('file')->move($destinationPath, $fileName); // uploading file to given path
 
-            default:
-                $program = $program->toArray();
-                break;
-        }
+            if ($upload_success) {
+                  return response()->json([
+                        'success' => 200,
+                        'image' => $fileName
+                  ])->withCookie(cookie('image', $fileName, 4500));
+            } else {
+                  return response()->json('error', 400);
+            }
+      }
 
-        return $program;
-    }
+      public function programLinter($program)
+      {
+            switch (true) {
+                  case $program === null:
+                        abort(404);
+                        break;
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        return view('program.create');
-    }
+                  default:
+                        $program = $program->toArray();
+                        break;
+            }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        $createData = $request->all();
+            return $program;
+      }
 
-        $createData['slug'] = CrudHelper::slugify($createData['titleStrong'] . ' ' . $createData['title']);
+      /**
+      * Show the form for creating a new resource.
+      *
+      * @return \Illuminate\Http\Response
+      */
+      public function create()
+      {
+            return view('program.create');
+      }
 
-        $program = Program::create($createData);
+      /**
+      * Store a newly created resource in storage.
+      *
+      * @param  \Illuminate\Http\Request  $request
+      * @return \Illuminate\Http\Response
+      */
+      public function store(Request $request)
+      {
+            $createData = $request->all();
 
-        return redirect()->route('index')
-            ->with('success_message', 'New Property Added');
-    }
+            $createData['slug'] = CrudHelper::slugify($createData['titleStrong'] . ' ' . $createData['title']);
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        $program = CrudHelper::show(new \App\Program, 'id', $id);
+            $program = Program::create($createData);
 
-        foreach ($request->all() as $key => $value) {
-            $updateData[$key] = $value;
-        }
+            return redirect()->route('index')
+                  ->with('success_message', 'New Property Added');
+      }
 
-        unset($updateData['_method']);
-        unset($updateData['_token']);
+      /**
+      * Update the specified resource in storage.
+      *
+      * @param  \Illuminate\Http\Request  $request
+      * @param  int  $id
+      * @return \Illuminate\Http\Response
+      */
+      public function update(Request $request, $id)
+      {
+            $program = CrudHelper::show(new \App\Program, 'id', $id);
 
-        $updateData['slug'] =  CrudHelper::slugify($updateData['titleStrong'] . ' ' . $updateData['title']);
+            foreach ($request->all() as $key => $value) {
+                  $updateData[$key] = $value;
+            }
 
-        $program->update($updateData);
+            unset($updateData['_method']);
+            unset($updateData['_token']);
 
-        $program = $this->programLinter($program);
+            $updateData['slug'] =  CrudHelper::slugify($updateData['titleStrong'] . ' ' . $updateData['title']);
 
-        return redirect()->route('program.edit', $program['id'])
-            ->with('success_message', 'Property Updated');
-    }
+            $program->update($updateData);
+
+            $program = $this->programLinter($program);
+
+            return redirect()->route('program.edit', $program['id'])
+                  ->with('success_message', 'Property Updated');
+      }
 }

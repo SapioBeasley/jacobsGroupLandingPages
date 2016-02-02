@@ -24,7 +24,7 @@
                                     <td><a href="{{route('program', $program['slug'])}}">{{$program['titleStrong']}} {{$program['title']}}</td>
                                     <td class="text-center">
                                         <div class="col-md-6">
-                                            <a class='btn btn-primary btn-xs' href="{{route('program.edit', $program['id'])}}" style="width:100%"><span class="glyphicon glyphicon-edit"></span> Edit</a>
+                                            <a class='btn btn-primary btn-xs' href="{{route('program.edit', $program['slug'])}}" style="width:100%"><span class="glyphicon glyphicon-edit"></span> Edit</a>
                                         </div>
 
                                         <div class="col-md-6">
