@@ -3,9 +3,11 @@
 @section('content')
 	<div class="container spark-screen">
 		<div class="row">
-			<div class="col-md-10 col-md-offset-1">
+			<div class="col-md-12">
 
 				@include('includes.status')
+
+				<a class="btn btn-primary" style="margin-bottom: 25px" href="{{route('program.ad.manager', $program['slug'])}}">View Programs Ad Manager</a>
 
 				<div class="panel panel-default">
 					<div class="panel-heading">Edit Program</div>
