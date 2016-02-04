@@ -53,12 +53,13 @@
 
             <div class="collapse navbar-collapse" id="spark-navbar-collapse">
                 <!-- Left Side Of Navbar -->
-                <ul class="nav navbar-nav">
+                {{-- <ul class="nav navbar-nav">
                     <li><a href="{{route('index')}}">Home</a></li>
-                </ul>
+                </ul> --}}
 
                 <!-- Right Side Of Navbar -->
                 <ul class="nav navbar-nav navbar-right">
+                    <li><a href="{{route('download.ad.feed')}}"><i class="fa fa-download"></i> Download Ad Feed</a></li>
                     <!-- Authentication Links -->
                     @if (Auth::guest())
                         <li><a href="{{url('auth/login')}}">Login</a></li>
