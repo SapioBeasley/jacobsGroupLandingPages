@@ -79,4 +79,9 @@ Route::get('download/adfeed', [
 	'uses' => 'DownloadFeedController@downloadFeedCsv'
 ]);
 
+Route::get('{id}/ad', [
+	'as' => 'program.ad.manager',
+	'uses' => 'AdManagerController@index'
+]);
+
 Route::post('{id}', 'IndexController@store');
