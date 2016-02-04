@@ -74,4 +74,9 @@ Route::get('inquire/{id}/success', [
 	'as' => 'sendSuccess'
 ]);
 
+Route::get('download/adfeed', [
+	'as' => 'download.ad.feed',
+	'uses' => 'DownloadFeedController@downloadFeedCsv'
+]);
+
 Route::post('{id}', 'IndexController@store');
