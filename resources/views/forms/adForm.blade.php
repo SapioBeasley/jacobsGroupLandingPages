@@ -24,5 +24,5 @@
 	@endif
 
 	<p><strong>Image URL </strong><br>
-	{{url('/', $program['slug']) . '/uploads/ads/' . $program['slug']. '.jpg'}}
+	{{$program['ad'][0]['program_ad_image_url']}}
 </div>
