@@ -38,7 +38,7 @@ class AdManagerController extends Controller
 
       public function showProgram($id)
       {
-            $program = CrudHelper::show(new \App\Program, 'slug', $id);
+            $program = CrudHelper::show(new \App\Program, 'slug', $id, ['ad']);
 
             $program = $this->programLinter($program);
 

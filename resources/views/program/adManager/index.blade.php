@@ -11,17 +11,38 @@
 					<div class="panel-heading">Program Ad Manager</div>
 
 					<div class="panel-body">
-						{!! Form::model($program, ['route' => ['program.ad.manager.update', $program['slug']], 'method' => 'PUT']) !!}
 
-							@include('forms.adForm')
+						@if(! empty($program['ad'][0]))
+							{!! Form::model($program, ['route' => ['program.ad.manager.update', $program['slug']], 'method' => 'PUT']) !!}
 
-							<div class="col-md-12">
-								<div class="form-group">
-									{!! Form::submit('Update Ad Details', ['class' => 'btn btn-primary']) !!}
+								@include('forms.adForm')
+
+								<div class="col-md-12">
+									<div class="form-group">
+										{!! Form::submit('Update Ad Details', ['class' => 'btn btn-primary']) !!}
+									</div>
 								</div>
-							</div>
 
-						{!! Form::close() !!}
+							{!! Form::close() !!}
+						@else
+
+							<center>
+							{!! Form::model($program, ['route' => ['program.ad.manager.update', $program['slug']], 'method' => 'PUT']) !!}
+
+								<div class="hidden">
+									@include('forms.adForm')
+								</div>
+
+								<div class="col-md-12">
+									<div class="form-group">
+										{!! Form::submit('Activate Ad', ['class' => 'btn btn-primary']) !!}
+									</div>
+								</div>
+
+							{!! Form::close() !!}
+							</center>
+
+						@endif
 					</div>
 
 				</div>
