@@ -15,9 +15,9 @@ class DownloadFeedController extends Controller
     {
         $file = '../storage/feeds/ad-feed-' . date('m-d-Y') . '.csv';
 
-        $programs = CrudHelper::index(new \App\Program)->get();
+        $ads = CrudHelper::index(new \App\Ad)->get();
 
-        $programs = $programs->toArray();
+        $ads = $ads->toArray();
 
         $csvFile = fopen($file, 'w');
 
@@ -34,16 +34,16 @@ class DownloadFeedController extends Controller
 
         fputcsv($csvFile, $fields);
 
-        foreach ($programs as $program) {
+        foreach ($ads as $ad) {
             $inloadToCsv = [
-                'ID' => $program['slug'],
-                'Item title' => $program['titleStrong'],
-                'Destination URL' => url('/', $program['slug']),
-                'Image URL' => url('/', $program['slug']) . '/ads/' . $program['slug']. '.jpg',
-                'Item subtitle' => $program['title'],
-                'Item description' => $program['bullet2'],
-                'Item category' => 'real estate',
-                'Contextual keywords' => 'closing costs;home assistance;buying home;real estate;',
+                'ID' => $ad['program_ad_id'],
+                'Item title' => $ad['program_ad_title'],
+                'Destination URL' => $ad['destination_url'],
+                'Image URL' => $ad['program_ad_image_url'],
+                'Item subtitle' => $ad['program_ad_subtitle'],
+                'Item description' => $ad['program_ad_description'],
+                'Item category' => $ad['program_ad_category'],
+                'Contextual keywords' => $ad['contextual_keywords'],
             ];
 
              fputcsv($csvFile, $inloadToCsv);
