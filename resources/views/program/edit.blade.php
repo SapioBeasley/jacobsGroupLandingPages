@@ -31,3 +31,27 @@
 		</div>
 	</div>
 @endsection
+
+@section('uploadScript')
+	@if (isset($program))
+		<script type="text/javascript">
+			var baseUrl = "{{ route('program', $program['slug']) }}";
+			var token = "{{ Session::getToken() }}";
+			Dropzone.autoDiscover = false;
+			var myDropzone = new Dropzone("div#dropzoneFileUpload", {
+				url: baseUrl + "/upload",
+				params: {
+					_token: token
+				}
+			});
+			Dropzone.options.myAwesomeDropzone = {
+				paramName: "file", // The name that will be used to transfer the file
+				maxFilesize: 200, // MB
+				addRemoveLinks: true,
+				accept: function(file, done) {
+
+				},
+			};
+		</script>
+	@endif
+@endsection
