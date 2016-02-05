@@ -56,8 +56,8 @@ Route::post('/store', [
 	'as' => 'program.store'
 ]);
 
-Route::post('{id}/upload', 'IndexController@upload');
-
+Route::post('{id}/upload', 'UploadsController@upload');
+Route::post('{id}/upload-ad', 'UploadsController@uploadAd');
 
 Route::get('{id}', [
 	'uses' => 'IndexController@show',
@@ -82,6 +82,11 @@ Route::get('download/adfeed', [
 Route::get('{id}/ad', [
 	'as' => 'program.ad.manager',
 	'uses' => 'AdManagerController@index'
+]);
+
+Route::put('{id}/ad/update', [
+	'as' => 'program.ad.manager.update',
+	'uses' => 'AdManagerController@updateAd'
 ]);
 
 Route::post('{id}', 'IndexController@store');
