@@ -31,7 +31,7 @@ class IndexController extends Controller
       */
       public function index()
       {
-            $programs = CrudHelper::index(new \App\Program)->get();
+            $programs = CrudHelper::index(new \App\Program, ['ad'])->get();
 
             return view('program.index')->with([
                   'programs' => $programs
@@ -49,7 +49,7 @@ class IndexController extends Controller
             $program = $this->showProgram($id);
 
             return view('index')->with([
-                  'program' => $program
+                  'program' => $program->first()->toArray()
             ]);
       }
 
@@ -64,7 +64,7 @@ class IndexController extends Controller
             $program = $this->showProgram($id);
 
             return view('program.edit')->with([
-                  'program' => $program
+                  'program' => $program->first()
             ]);
       }
 
@@ -137,25 +137,6 @@ class IndexController extends Controller
             ]);
       }
 
-      public function upload(Request $request, $id)
-      {
-            $program = $this->showProgram($id);
-
-            $destinationPath = 'uploads'; // upload path
-            $extension = $request->file('file')->getClientOriginalExtension(); // getting file extension
-            $fileName = $program->slug . '.' . $extension; // renameing image
-            $upload_success = $request->file('file')->move($destinationPath, $fileName); // uploading file to given path
-
-            if ($upload_success) {
-                  return response()->json([
-                        'success' => 200,
-                        'image' => $fileName
-                  ])->withCookie(cookie('image', $fileName, 4500));
-            } else {
-                  return response()->json('error', 400);
-            }
-      }
-
       public function programLinter($program)
       {
             switch (true) {
@@ -164,7 +145,7 @@ class IndexController extends Controller
                         break;
 
                   default:
-                        $program = $program->toArray();
+                        $program = $program;
                         break;
             }
 
@@ -195,8 +176,8 @@ class IndexController extends Controller
 
             $program = Program::create($createData);
 
-            return redirect()->route('index')
-                  ->with('success_message', 'New Property Added');
+            return redirect()->route('program.edit', $program['slug'])
+                  ->with('success_message', 'New Program Added, next add your image and manage your ad');
       }
 
       /**
@@ -223,7 +204,9 @@ class IndexController extends Controller
 
             $program = $this->programLinter($program);
 
-            return redirect()->route('program.edit', $program['id'])
+            $program = $program->first();
+
+            return redirect()->route('program.edit', $program['slug'])
                   ->with('success_message', 'Property Updated');
       }
 }
