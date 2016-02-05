@@ -1268,16 +1268,16 @@
         },
         {
             "name": "sapioweb/crudhelper",
-            "version": "1.2.6",
+            "version": "1.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/SapioBeasley/crudHelper.git",
-                "reference": "d5860ed959435012ac372825c9c7a1965cf52b4f"
+                "reference": "225ddc231ee514e85e9242b3924d5d02978062c2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/SapioBeasley/crudHelper/zipball/d5860ed959435012ac372825c9c7a1965cf52b4f",
-                "reference": "d5860ed959435012ac372825c9c7a1965cf52b4f",
+                "url": "https://api.github.com/repos/SapioBeasley/crudHelper/zipball/225ddc231ee514e85e9242b3924d5d02978062c2",
+                "reference": "225ddc231ee514e85e9242b3924d5d02978062c2",
                 "shasum": ""
             },
             "type": "library",
@@ -1314,7 +1314,7 @@
                 "show",
                 "update"
             ],
-            "time": "2016-02-02 20:12:48"
+            "time": "2016-02-04 20:30:22"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -3461,16 +3461,16 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "v3.0.1",
+            "version": "v3.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "3df409958a646dad2bc5046c3fb671ee24a1a691"
+                "reference": "3cf0709d7fe936e97bee9e954382e449003f1d9a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/3df409958a646dad2bc5046c3fb671ee24a1a691",
-                "reference": "3df409958a646dad2bc5046c3fb671ee24a1a691",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/3cf0709d7fe936e97bee9e954382e449003f1d9a",
+                "reference": "3cf0709d7fe936e97bee9e954382e449003f1d9a",
                 "shasum": ""
             },
             "require": {
@@ -3506,7 +3506,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2015-12-26 13:39:53"
+            "time": "2016-02-02 13:44:19"
         }
     ],
     "aliases": [],
