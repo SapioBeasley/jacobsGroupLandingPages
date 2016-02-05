@@ -31,8 +31,15 @@ class AdManagerController extends Controller
       {
             $program = $this->showProgram($id);
 
+            $disableUpdate = 0;
+
+            if (! file_exists('uploads/ads/ad_' . $program->slug. '.jpg')) {
+                  $disableUpdate = 1;
+            }
+
             return view('program.adManager.index')->with([
-                  'program' => $program
+                  'program' => $program,
+                  'disableUpdate' => $disableUpdate
             ]);
       }
 

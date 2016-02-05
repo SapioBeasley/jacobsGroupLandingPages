@@ -19,7 +19,13 @@
 
 								<div class="col-md-12">
 									<div class="form-group">
-										{!! Form::submit('Update Ad Details', ['class' => 'btn btn-primary']) !!}
+										@if ($disableUpdate === 1)
+											<div class="alert alert-warning">
+												<p><strong>You must upload an image and refresh the page before updating</strong></p>
+											</div>
+										@else
+											{!! Form::submit('Update Ad Details', ['class' => 'btn btn-primary']) !!}
+										@endif
 									</div>
 								</div>
 
