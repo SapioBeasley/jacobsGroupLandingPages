@@ -75,7 +75,7 @@ class AdManagerController extends Controller
                   'program_ad_id' => $program->slug,
                   'program_ad_title' => $program->titleStrong,
                   'destination_url' => url('/', $program->slug),
-                  'program_ad_image_url' => url('/', $program->slug) . '/uploads/ads/' . $program->slug. '.jpg',
+                  'program_ad_image_url' => url('/') . '/uploads/ads/ad_' . $program->slug. '.jpg',
                   'program_ad_subtitle' => $program->title,
                   'program_ad_description' => $program->bullet2,
                   'program_ad_category' => 'real estate',
