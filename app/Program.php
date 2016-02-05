@@ -27,4 +27,9 @@ class Program extends Model
       'slug',
       'is_spanish',
     ];
+
+    public function ad()
+    {
+      return $this->belongsToMany('App\Ad');
+    }
 }
