@@ -46,7 +46,7 @@
         <!-- Google Code for Remarketing Tag -->
         <script type="text/javascript">
         var google_tag_params = {
-        landing_id: "{{$program['slug']}}",
+        dynx_itemid: "{{$program['slug']}}",
         dynx_pagetype: 'home',
         };
         </script>
