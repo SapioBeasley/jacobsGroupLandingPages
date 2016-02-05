@@ -23,11 +23,24 @@
                                 <tr>
                                     <td><a href="{{route('program', $program['slug'])}}">{{$program['titleStrong']}} {{$program['title']}}</td>
                                     <td class="text-center">
-                                        <div class="col-md-6">
+
+                                        <div class="col-md-4">
+                                            @if(empty($program['ad'][0]))
+
+                                                <a class='btn btn-warning btn-xs' href="{{route('program.ad.manager', $program['slug'])}}" style="width:100%"><span class="glyphicon glyphicon-exclamation-sign"></span> Create Ad</a>
+
+                                            @else
+
+                                                <a class='btn btn-success btn-xs' href="{{route('program.ad.manager', $program['slug'])}}" style="width:100%"><span class="glyphicon glyphicon-pencil"></span> Manage Ad</a>
+
+                                            @endif
+                                        </div>
+
+                                        <div class="col-md-4">
                                             <a class='btn btn-primary btn-xs' href="{{route('program.edit', $program['slug'])}}" style="width:100%"><span class="glyphicon glyphicon-edit"></span> Edit</a>
                                         </div>
 
-                                        <div class="col-md-6">
+                                        <div class="col-md-4">
                                             {!! Form::open(['route' => ['program.destroy', $program['id']], 'style' => 'float: right;width: 100%', 'method' => 'DELETE']) !!}
                                                 {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-xs', 'style' => 'width:100%']) !!}
                                             {!! Form::close() !!}
