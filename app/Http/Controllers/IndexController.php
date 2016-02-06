@@ -95,13 +95,15 @@ class IndexController extends Controller
       {
             $program = $this->showProgram($id);
 
+            $program = $program->first();
+
             $request = $request->all();
 
             $data = array_merge($request, $program);
 
             $sendMail = $this->sendInquire($data);
 
-            return redirect()->route('sendSuccess', $program['slug']);
+            return redirect()->route('sendSuccess', $program->slug);
       }
 
       public function sendInquire($data)
@@ -123,6 +125,8 @@ class IndexController extends Controller
       public function inquireSuccess($id)
       {
             $program = $this->showProgram($id);
+
+            $program = $program->first();
 
             $titleStrong = $program->titleStrong;
             $title = $program->title;
