@@ -99,7 +99,7 @@ class IndexController extends Controller
 
             $request = $request->all();
 
-            $data = array_merge($request, $program);
+            $data = array_merge($request, $program->toArray());
 
             $sendMail = $this->sendInquire($data);
 
