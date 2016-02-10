@@ -1,4 +1,4 @@
-<h2> Start Today! </h2>
+<h2> Find out how! </h2>
 
 {!! Form::open(['route' => ['inquire', $program['slug']]], ['class' => 'row', 'method' => 'post']) !!}
 
