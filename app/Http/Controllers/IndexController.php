@@ -46,10 +46,14 @@ class IndexController extends Controller
       */
       public function show($id)
       {
-            $program = $this->showProgram($id);
+            $program = $this->showProgram($id)->first();
+
+            if ($program === null) {
+                  abort(404);
+            }
 
             return view('index')->with([
-                  'program' => $program->first()->toArray()
+                  'program' => $program->toArray()
             ]);
       }
 
