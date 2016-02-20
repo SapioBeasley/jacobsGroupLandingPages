@@ -123,7 +123,48 @@ class IndexController extends Controller
                   return redirect()->back()->with('error_message', 'Something went wrong, please try again later.');
             }
 
+            $this->sendToFollowupBoss($data);
+
             return $sendInquire;
+      }
+
+      public function sendToFollowupBoss($data)
+      {
+            $client = new \GuzzleHttp\Client();
+            $response = $client->request('POST', 'https://api.followupboss.com/v1/events', [
+                  'auth' => [
+                        '528c544180d97f86294e8990cd047b3f8d7d33',
+                        ''
+                  ],
+                  'form_params' => [
+                        'source' => $data['titleStrong'] . ' Program',
+                        'system' => 'Jacobs Group Vegas',
+                        'type' => 'Inquiry',
+                        'message' => '[INQUIRE] ' . $data['titleStrong'],
+                        'person' => [
+                              'firstName' => $data['first_name'],
+                              'lastName' => '',
+                              'emails' => [
+                                    [
+                                          'value' => $data['email']
+                                    ],
+                              ],
+                              'phones' => [
+                                    [
+                                          'value' => $data['phone']
+                                    ]
+                              ],
+                              'stage' => [
+                                    'value' => 'Lead'
+                              ],
+                              'tags' => [
+                                    'value' => $data['titleStrong']
+                              ],
+                        ]
+                  ]
+            ]);
+
+            return void;
       }
 
       public function inquireSuccess($id)
