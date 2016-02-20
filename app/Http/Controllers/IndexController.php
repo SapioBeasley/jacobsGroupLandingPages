@@ -133,7 +133,7 @@ class IndexController extends Controller
             $client = new \GuzzleHttp\Client();
             $response = $client->request('POST', 'https://api.followupboss.com/v1/events', [
                   'auth' => [
-                        '528c544180d97f86294e8990cd047b3f8d7d33',
+                        env('FOLLOW_UP_BOSS_KEY'),
                         ''
                   ],
                   'form_params' => [
