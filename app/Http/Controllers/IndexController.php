@@ -131,6 +131,27 @@ class IndexController extends Controller
       public function sendToFollowupBoss($data)
       {
             $client = new \GuzzleHttp\Client();
+
+            $actionPlans = $client->request('GET', 'https://api.followupboss.com/v1/actionPlans', [
+                  'auth' => [
+                        env('FOLLOW_UP_BOSS_KEY'),
+                        ''
+                  ],
+            ]);
+
+            $actionPlans = json_decode($actionPlans->getBody());
+
+            $actionPlans = $actionPlans->actionPlans;
+
+            foreach ($actionPlans as $actionPlanKey => $actionPlanValue) {
+                  if ($actionPlanValue->name !== "Buyers Engagement emails") {
+                        unset($actionPlans[$actionPlanKey]);
+                        continue;
+                  }
+
+                  $actionPlanId = $actionPlans[$actionPlanKey]->id;
+            }
+
             $response = $client->request('POST', 'https://api.followupboss.com/v1/events', [
                   'auth' => [
                         env('FOLLOW_UP_BOSS_KEY'),
@@ -162,6 +183,22 @@ class IndexController extends Controller
                               ],
                         ]
                   ]
+            ]);
+
+
+            $person = json_decode($response->getBody());
+
+            $personId = $person->id;
+
+             $addPersonToAction = $client->request('POST', 'https://api.followupboss.com/v1/actionPlansPeople', [
+                  'auth' => [
+                        env('FOLLOW_UP_BOSS_KEY'),
+                        ''
+                  ],
+                  'form_params' => [
+                        'personId' => $personId,
+                        'actionPlanId' => $actionPlanId
+                  ],
             ]);
 
             return void;
