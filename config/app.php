@@ -146,6 +146,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Sapioweb\CrudHelper\CrudHelperServiceProvider::class,
+	Spatie\Tail\TailServiceProvider::class,
 
     ],
 
