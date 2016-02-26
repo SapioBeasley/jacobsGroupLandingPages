@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Mail;
 
+use GuzzleHttp\Exception\RequestException;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Sapioweb\CrudHelper\CrudyController as CrudHelper;
@@ -190,16 +191,24 @@ class IndexController extends Controller
 
             $personId = $person->id;
 
-             $addPersonToAction = $client->request('POST', 'https://api.followupboss.com/v1/actionPlansPeople', [
-                  'auth' => [
-                        env('FOLLOW_UP_BOSS_KEY'),
-                        ''
-                  ],
-                  'form_params' => [
-                        'personId' => $personId,
-                        'actionPlanId' => $actionPlanId
-                  ],
-            ]);
+            try {
+                  $addPersonToAction = $client->request('POST', 'https://api.followupboss.com/v1/actionPlansPeople', [
+                        'auth' => [
+                              env('FOLLOW_UP_BOSS_KEY'),
+                              ''
+                        ],
+                        'form_params' => [
+                              'personId' => $personId,
+                              'actionPlanId' => $actionPlanId
+                        ],
+                  ]);
+            } catch (RequestException $e) {
+
+                  $addPersonToAction = [
+                        'success' => 'fail',
+                        'code' => $e->getCode()
+                  ];
+            }
 
             return void;
       }
