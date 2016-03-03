@@ -32,4 +32,8 @@ class Program extends Model
     {
       return $this->belongsToMany('App\Ad');
     }
+
+    public function image() {
+      return $this->belongsToMany('App\Image');
+    }
 }

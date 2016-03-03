@@ -47,6 +47,6 @@ fbq('track', "PageView");
 
 <style type="text/css">
 	#intro {
-		background-image: url({{asset('uploads/' . $program['slug'] . '.jpg')}});
+		background-image: url({{asset($program['image'][0]['images_url'])}});
 	}
 </style>

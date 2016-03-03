@@ -47,7 +47,7 @@ class IndexController extends Controller
       */
       public function show($id)
       {
-            $program = $this->showProgram($id)->first();
+            $program = $this->showProgram($id, ['image'])->first();
 
             if ($program === null) {
                   abort(404);
@@ -73,9 +73,9 @@ class IndexController extends Controller
             ]);
       }
 
-      public function showProgram($id)
+      public function showProgram($id, $with = [])
       {
-            $program = CrudHelper::show(new \App\Program, 'slug', $id);
+            $program = CrudHelper::show(new \App\Program, 'slug', $id, $with);
 
             $program = $this->programLinter($program);
 

@@ -30,7 +30,7 @@ class UploadsController extends Controller
 
             $destinationPath = 'uploads'; // upload path
 
-            $upload_success = $this->uploadSaveFile($request->file('file'), $destinationPath, $program->slug);
+            $upload_success = $this->uploadSaveFile($request->file('file'), $destinationPath, $program->slug, $program);
 
             if ($upload_success) {
                   return response()->json([
@@ -54,7 +54,7 @@ class UploadsController extends Controller
 
             $destinationPath = 'uploads/ads'; // upload path
 
-            $upload_success = $this->uploadSaveFile($request->file('file'), $destinationPath, 'ad_' . $ad->program_ad_id );
+            $upload_success = $this->uploadSaveFile($request->file('file'), $destinationPath, 'ad_' . $ad->program_ad_id);
 
             if ($upload_success) {
                   return response()->json([
@@ -66,11 +66,16 @@ class UploadsController extends Controller
             }
       }
 
-      public function uploadSaveFile($file, $destination, $nameOfFile)
+      public function uploadSaveFile($file, $destination, $nameOfFile, $program = null)
       {
             $extension = $file->getClientOriginalExtension();
             $fileName = $nameOfFile . '.' . $extension;
             $upload_success = $file->move($destination, $fileName);
+
+            if ($upload_success) {
+                  $image = new \App\Image(['images_url' => $destination . '/' . $fileName]);
+                  $program->image()->save($image);
+            }
 
             return $upload_success;
       }
