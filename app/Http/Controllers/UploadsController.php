@@ -36,7 +36,7 @@ class UploadsController extends Controller
                   return response()->json([
                         'success' => 200,
                         'image' => $fileName
-                  ])->withCookie(cookie('image', $fileName, 4500));
+                  ])->withCookie(cookie('image', isset($fileName) ? $fileName : null, 4500));
             } else {
                   return response()->json('error', 400);
             }

@@ -210,7 +210,7 @@ class IndexController extends Controller
                   ];
             }
 
-            return void;
+            return;
       }
 
       public function inquireSuccess($id)
